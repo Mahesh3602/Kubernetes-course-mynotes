@@ -1,0 +1,14 @@
+#Cluster upgrade
+kubeadm upgrade plan
+kubectl drain controlplane --ignore-daemonsets
+kubeadm version
+apt install kubeadm=1.18.0.00
+kubeadm upgrade apply v1.18.0
+apt install kubelet=1.18.0.00
+kubectl uncordon node-role.kubernetes.io/master
+
+kubectl drain node01 --ignore-daemonsets
+ssh node01
+apt install kubeadm=1.20.0-00
+kubeadm upgrade apply v1.18.0
+apt install kubelet=1.18.0.00

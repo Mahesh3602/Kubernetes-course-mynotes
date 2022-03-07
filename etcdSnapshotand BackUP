@@ -1,0 +1,11 @@
+--cert-file=/etc/kubernetes/pki/etcd/server.crt
+
+--trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt
+
+--data-dir=/var/lib/etcd
+
+ETCDCTL_API=3 etcdctl snapshot save /opt/snapshot-pre-boot.db --cert=/etc/kubernetes/pki/etcd/server.crt --cacert="/etc/kubernetes/pki/etcd/ca.crt" --key="/etc/kubernetes/pki/etcd/server.key"
+
+ETCDCTL_API=3 etcdctl snapshot restore /opt/snapshot-pre-boot.db
+
+#Update data directory in etcd file

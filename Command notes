@@ -1,0 +1,33 @@
+#imperative #create
+kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+kubectl create deployment nginx --image=nginx
+kubectl expose deployment nginx --port 80
+kubectl expose pod redis --port=6379 --name redis-service
+
+#imperative #Update
+kubectl edit deployment nginx
+kubectl scale deployment nginx --replicas=5
+kubectl set image deployment nginx nginx=nginx:1.18
+
+kubectl create -f nginx.yaml
+kubectl replace -f nginx.yaml
+kubectl delete -f nginx.yaml
+
+kubectl get ns --no-headers | wc -l
+
+##taint and tolerance
+kubectl taint nodes node01 spray=mortein:NoSchedule
+kubectl taint nodes controlplane node-role.kubernetes.io/master:NoSchedule-
+kubectl describe node node01 | grep -i taint
+
+kubectl label node node01 color=blue
+
+#Daemonset
+kubectl get daemonsets --all-namespaces
+
+## cluster mainataince
+kubectl drain node01 --ignore-daemonsets #evict pods
+kubectl uncordon node01  #schedule again
+kubectl cordon node2     # dont allow new pods to schedule
+
+

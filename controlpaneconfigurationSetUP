@@ -1,0 +1,9 @@
+# check node in kube-system
+
+cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+     KUBELET_KUBECONFIG_ARGS= --config=/var/lib/kubelet/config.yaml
+
+     grep -i staticPodPath /var/lib/kubelet/config.yaml
+
+staticPodPath --> /etc/kubernetes/manifests

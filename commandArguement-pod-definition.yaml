@@ -1,0 +1,23 @@
+apiVersion: v1
+
+kind: Pod
+
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+#command arguement    
+      command:
+      - sleep
+      - "5000"
+#configmap
+    envFrom:
+    - configMapRef:
+        name: app-config
+
+

@@ -1,0 +1,16 @@
+kubectl describe rolebinding kube-proxy -n kube-system
+kubectl describe role kube-proxy -n kube-system
+
+kubectl get pods --as dev-user
+
+kubectl api-resources --namespaced=true
+
+kubectl create clusterrolebinding --help
+kubectl create clusterrole michelle --verb=get,list --resource=nodes
+
+kubectl create clusterroles --help
+kubectl create clusterrole michelle --verb=get,list --resource=nodes
+
+
+
+

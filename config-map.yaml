@@ -1,0 +1,21 @@
+apiVersion: v1
+kind::
+metadata:
+  name: app-config
+
+data:
+  APP_COLOR: blue
+  APP_MODE: prod
+
+
+
+#configuring with pod: refer commandArgurments-pod-definitio.yaml.
+
+
+
+
+
+
+  #     kubectl create configmap \
+  #        app-config --from-literal=APP_color=blue
+  #      OR  app-config --from-file=config-map.properties

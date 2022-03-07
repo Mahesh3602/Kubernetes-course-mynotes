@@ -1,0 +1,78 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-ingress-controller
+spec:
+  selector:
+    matchLabels:
+      app: nginx-ingress-controller
+  template:
+    metadata:
+      labels:
+        app: nginx-ingress
+    spec:
+      containers:
+      - name: nginx-ingress-controller
+        image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.21.0
+ 
+      args:
+        - quay.io/kubernetes-ingress-controller/nginx-ingress-controller
+        - --configmap=$(POD_NAMESPACE)/nginx-configurationß
+      
+      env:
+        - name: POD_NAME 
+          valueFrom:
+            fieldRef:
+              fieldPath: metadat.name
+
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+      
+      ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myapp
+
+---
+apiVersion: v1
+kind: apiVersion: v1
+kind: Service
+metadata:
+  name: Nginx-ingress
+spec:
+  selector:
+    app: nginx-ingress
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadat:
+  name: nginx-Ingress-serviceaccount
+
+
+##Below are commands to create controller
+kubectl create ns nginx-ingress-controller
+kubectl create cm nginx-configuration -n ingress-space
+kubectl create sa ingress-serviceaccount -n ingress-space
+
+kubectl expose deployment ingress-controller --type=NodePort --port=80 --name=ingress --dry-run=client -o yaml > ingress.yaml
+
+
